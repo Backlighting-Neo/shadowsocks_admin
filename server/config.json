@@ -1,0 +1,5 @@
+{
+  "shadowsocks": {
+    "configFilePath": "/etc/shadowsocks_python.json"
+  }
+}
