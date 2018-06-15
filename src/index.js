@@ -1,14 +1,48 @@
-import _ from 'lodash';
-import './style.css';
-
-function component() {
-  var element = document.createElement('div');
-
-  // Lodash（目前通过一个 script 脚本引入）对于执行这一行是必需的
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-  element.classList.add('hello');
-
-  return element;
+if (process.env.NODE_ENV !== 'production') {
+  require('./index.html')
 }
 
-document.body.appendChild(component());
+import './style.css';
+import QRCode from 'qrcode';
+
+(function() {
+  function renderQrcode(dom, text) {
+    QRCode.toCanvas(dom, text);
+  }
+
+  function renderConfig(config) {
+    Object.keys(config).forEach(key => {
+      document.getElementById(key).innerHTML = config[key];
+    })
+  }
+
+  function getQrcode(qrcodeDom) {
+    fetch('/api/qrcode')
+    .then(res => res.json())
+    .then(res => renderQrcode(qrcodeDom, res.qrcode));
+
+  }
+
+  window.onload = function() {
+    const qrcodeDom = document.getElementById('qrcode');
+    const button = this.document.getElementById('changePort');
+
+    button.onclick = function() {
+      if(button.disabled) return;
+      button.disabled = true;
+      fetch('/api/changePort')
+      .then(res => res.json())
+      .then(res => {
+        renderConfig(res);
+        getQrcode(qrcodeDom);
+        button.disabled = false;
+      })
+    }
+
+    getQrcode(qrcodeDom);
+
+    fetch('/api/config')
+    .then(res => res.json())
+    .then(res => renderConfig(res));
+  }
+})();
