@@ -14,9 +14,23 @@
       <div class="qrcodeContainer">
         <canvas id="qrcode" class="qrcode"></canvas>
       </div>
+      <div class="cardButton">
+        <button class="changePortButton" onclick="window.open('http://static.tangzongchao.com/ShadowsocksX-2.6.3.dmg')">
+          <i class="iconfont">&#xe61b;</i>
+        </button>
+        <button class="changePortButton" onclick="window.open('http://static.tangzongchao.com/Shadowsocks-4.0.10.zip')">
+          <i class="iconfont">&#xe668;</i>
+        </button>
+        <button class="changePortButton" onclick="window.open('http://static.tangzongchao.com/shadowsocks--universal-4.6.0.apk')">
+          <i class="iconfont">&#xe6ef;</i>
+        </button>
+      </div>
       <div class="card">
         <div class="cardTitle">
-          服务器信息
+          <span>服务器信息</span>
+          <div class="download">
+            
+          </div>
         </div>
         <div class="cardInfo">
           <p><span class="label">服务器</span> <span id="server"></span></p>
@@ -26,10 +40,11 @@
         </div>
       </div>
       <div class="cardButton">
-        <button id="changePort" class="changePortButton">
+        <button id="changePort"  class="changePortButton">
           <span>更换端口</span>
         </button>
       </div>
+      
     </div>
   </body>
 </html>
